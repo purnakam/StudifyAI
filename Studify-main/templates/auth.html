@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In / Sign Up</title>
+  <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="row">
+      <!-- Left Section -->
+      <div class="col-md-6 left-section">
+        <img src="/static/StudifyAI-logo.png" alt="" style="height: 60px; margin-left: 40%;">
+        <h1>Welcome to StudifyAI !</h1>
+        <p>Revolutionizing Learning with AI</p>
+        <p>Empower your education with cutting-edge tools designed to simplify your learning experience.</p>
+      </div>
+
+      <div class="col-md-6 right-section">
+        <div class="auth-card">
+          <h2>Login to continue</h2>
+          <button id="google-signin" class="google-btn">
+            <img src="/static/search.png" alt="Google Icon" class="google-icon">
+            Sign in with Google
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+    
+    // Firebase ka congiguration
+    const firebaseConfig = {
+      apiKey: "AIzaSyA0jZcDLS9b31fVf5Wb3yk4XNBaC9lVYkw",
+      authDomain: "eduai-17e96.firebaseapp.com",
+      projectId: "eduai-17e96",
+      storageBucket: "eduai-17e96.appspot.com",
+      messagingSenderId: "46846141128",
+      appId: "1:46846141128:web:9671893770e1d546a33bfd",
+      measurementId: "G-993XBM7FB2",
+    };
+    
+    // Firebase initialization
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    
+    // checking authentication state
+      auth.onAuthStateChanged(function(user) {
+        window.onload = function() {
+            const profileSection = document.getElementById('profileSection');
+    
+            // Check if profileSection is present
+            if (profileSection) {
+                if (user) {
+                    profileSection.innerHTML = `
+                        <div>Welcome, ${user.displayName}</div>
+                        <div>Email: ${user.email}</div>
+                        <button onclick="signOut()">Sign Out</button>
+                    `;
+                } else {
+                    profileSection.innerHTML = `
+                        <button onclick="signIn()">Sign In</button>
+                    `;
+                }
+            } else {
+                console.error('profileSection is null');
+            }
+        };
+    });
+  
+    
+    // Google Sign-In Logic
+    document.getElementById('google-signin').addEventListener('click', async () => {
+      console.log("Sign-in button clicked");
+      
+      const provider = new GoogleAuthProvider();
+    
+      try {
+        // Trigger sign-in with popup
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        console.log("User signed in:", user);
+    
+        // Get the user's ID token
+        const token = await user.getIdToken();
+        if (token) {
+          localStorage.setItem("idToken", token)};
+        console.log("User token:", token);
+    
+        // Redirect to another page
+        window.location.href = "/"; // Redirect after successful login
+      } catch (error) {
+        console.error("Error during sign-in:", error);
+        alert("Sign-in failed. Please try again.");
+      }
+    });
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studify - Empowering Education</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/index.css">
+    <style>
+        body {
+            background-color: #000; /* Set background to black */
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        .welcome-message {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 50px; /* Add spacing below the welcome message */
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+        }
+        .tool-card {
+            background-color: #fff; /* Set the card background to white */
+            border-radius: 15px;
+            height: 300px; /* Ensure all cards have the same height */
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+        }
+        .tool-card:hover {
+            transform: scale(1.05); /* Slight scale on hover */
+            box-shadow: 0px 5px 30px rgba(255, 255, 255, 0.5); /* Glow effect */
+        }
+        .tool-card h5 {
+            color: #000; /* Ensure text inside the card is readable */
+        }
+        .tool-card p {
+            color: #333; /* Slightly lighter text for descriptions */
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+        <div class="container">
+            <img src="../static/StudifyAI-logo.png" alt="StudifyAI">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li id="profile-section" style="display: none;">
+                        <img id="profile-pic" src="" alt="Profile Picture" class="profile-pic">
+                        <span id="profile-name"></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link login-btn" href="/auth" id="login-button">Login</a>
+                    </li>
+                    <li class="nav-item dropdown d-none" id="profile-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img id="profile-pic" src="" alt="Profile Picture" class="rounded-circle" width="30">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" id="profile-name"></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="welcome-message">
+            <h1>Welcome to StudifyAI !</h1>
+            <p>Revolutionizing Learning with AI</p>
+            <p>At StudifyAI, we're here to make learning easier and more fun! Our AI-powered tools help you create custom study materials, generate personalized question papers, and improve your learning experience. Whether you're a student or an educator, we’re excited to help you save time and get better results. Let’s make learning smarter and more enjoyable together!</p>
+            <br>
+            <br>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4 mb-4">
+                <div class="card tool-card p-3 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="text-center">Question Generator and Evaluator</h5>
+                        <p>Upload your content and generate customized questions. Evaluate your answers and improve your skills.</p>
+                    </div>
+                    <a class="btn btn-primary w-100 mt-3" href="/questionGenerator">Explore</a>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card tool-card p-3 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="text-center">PDF Summarizer</h5>
+                        <p>Upload a PDF and get a concise summary in seconds. Simplify your study materials effortlessly.</p>
+                    </div>
+                    <a class="btn btn-primary w-100 mt-3" href="/pdfSummarizer">Explore</a>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card tool-card p-3 d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="text-center">Question & Answer Tool</h5>
+                        <p>Ask questions and get precise answers by analyzing your uploaded content.</p>
+                    </div>
+                    <a href="/qaTool" class="btn btn-primary w-100 mt-3">Explore</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-3">
+                    <h5>About StudifyAI</h5>
+                    <p>Empowering both students and educators by providing access to advanced AI tools that not only enhance learning experiences but also foster deeper understanding, creativity, and academic success. These tools are designed to support every step of the educational journey, making learning more personalized, engaging, and impactful for all.</p>
+                </div>
+    
+                <div class="col-12 col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-light">Home</a></li>
+                        <li><a href="/about" class="text-light">About</a></li>
+                        <li><a href="/contact" class="text-light">Contact</a></li>
+                        <li><a href="/privacy-policy" class="text-light">Privacy Policy</a></li>
+                    </ul>
+                </div>
+    
+                <div class="col-12 col-md-4 mb-3">
+                    <h5>Contact Us</h5>
+                    <p>Email: <a href="mailto:support@studify.com" class="text-light">support@studify.com</a></p>
+                    <p>Phone: +91 88178 01639</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <p>&copy; 2024 StudifyAI, All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        console.log("Welcome to EduAI Home Page!");
+        async function updateNavbar() {
+            const profile = await fetchProfile();
+        
+            if (profile) {
+                const navbar = document.getElementById("navbar");
+                const loginButton = document.getElementById("login-button");
+        
+                loginButton.style.display = "none";
+                const profileHTML = `
+                    <div class="profile-section">
+                        <a href="profile.html">
+                            <img src="${profile.picture}" alt="${profile.name}" class="profile-picture" />
+                            <span>${profile.name}</span>
+                        </a>
+                    </div>
+                `;
+                navbar.insertAdjacentHTML("beforeend", profileHTML);
+            }
+        }                
+    </script>
+</body>
+</html>
