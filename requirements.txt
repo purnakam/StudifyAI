@@ -1,6 +1,12 @@
 fastapi
 uvicorn
+google-generativeai
 PyPDF2
-pymongo
+Jinja2
+python-multipart
+pydantic
+requests
 firebase-admin
-langchain
+motor
+pymongo
+gunicorn
